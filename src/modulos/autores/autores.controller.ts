@@ -6,9 +6,9 @@ import {
   Body,
   Put,
   Delete,
+  Get,
 } from '@nestjs/common';
 import { AutoresService } from './autores.service';
-import { Get } from '@nestjs/common';
 import { criarAutorDto } from './autores.dto';
 
 @Controller('autores')
