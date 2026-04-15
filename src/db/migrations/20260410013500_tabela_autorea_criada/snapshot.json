@@ -2,9 +2,7 @@
   "version": "2",
   "dialect": "mssql",
   "id": "88c44d9f-50bd-4ca8-b48a-b86c7457ef19",
-  "prevIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
       "name": "autores",
@@ -56,9 +54,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "name": "autores_pkey",
       "table": "autores",
       "schema": "dbo",
@@ -66,9 +62,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "name": "autores_email_key",
       "schema": "dbo",
       "table": "autores",
