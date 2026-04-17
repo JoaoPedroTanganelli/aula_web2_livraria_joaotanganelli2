@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { DATABASE_URL, DRIZZLE } from './database.constants';
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { drizzle } from 'drizzle-orm/node-mssql';
 import { connect } from 'mssql';
 import type { config as mssqlConfig } from 'mssql';
 import * as schema from '../schemas/index';
