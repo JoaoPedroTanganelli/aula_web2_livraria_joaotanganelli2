@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { criarAutorDto } from './autores.dto';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { AtualizarAutorDto, CriarAutorDto } from './autores.dto';
 import { AutoresRepository } from './autores.repository';
-const livros = ['livro1', 'livro 2 '];
+
 let autores = [
   {
     id: 1,
@@ -28,43 +32,23 @@ export class AutoresService {
     return await this.autoresRepository.listarAutores();
   }
 
-  listarAutor(id: number) {
-    const autorEncontrado = autores.find((autor) => autor.id === id);
+  async listarAutor(id: number) {
+    const autorEncontrado = await this.autoresRepository.listarAutor(id);
 
     if (!autorEncontrado) {
-      return 'Autor não encontrado';
+      throw new NotFoundException(`Autor com id ${id} não encontrado`);
     }
     return autorEncontrado;
   }
 
-  criarAutor(bodyRequest: criarAutorDto) {
-    if (!bodyRequest.nome || !bodyRequest.email) {
-      return 'Nome e email são obrigatorios';
-    }
-    autores.push({
-      id: autores.length + 1,
-      nome: bodyRequest.nome,
-      email: bodyRequest.email,
-    });
-    return autores;
+  criarAutor(bodyRequest: CriarAutorDto) {
+    return this.autoresRepository.criarAutor(bodyRequest);
   }
 
-  atualizarAutor(idAutor: number, bodyRequest: any) {
-    const autorEncontrado = autores.find((autor) => autor.id === idAutor);
+  async atualizarAutor(idAutor: number, bodyRequest: AtualizarAutorDto) {
+    await this.listarAutor(idAutor);
 
-    if (!autorEncontrado) {
-      return 'Autor não encontrado';
-    }
-
-    if (bodyRequest.nome) {
-      autorEncontrado.nome = bodyRequest.nome;
-    }
-
-    if (bodyRequest.email) {
-      autorEncontrado.email = bodyRequest.email;
-    }
-
-    return autorEncontrado;
+    return this.autoresRepository.atualizarAutor(idAutor, bodyRequest);
   }
   deletarAutor(idAutor: number) {
     this.listarAutor(idAutor);

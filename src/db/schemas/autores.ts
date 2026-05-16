@@ -1,9 +1,17 @@
-import { mssqlTable, int, varchar, datetime } from 'drizzle-orm/mssql-core';
+import { isNotNull } from 'drizzle-orm';
+import {
+  mssqlTable,
+  int,
+  varchar,
+  datetime,
+  bit,
+} from 'drizzle-orm/mssql-core';
 
 export const autoresTabela = mssqlTable('autores', {
   id: int('id').primaryKey().identity(),
   nome: varchar('nome', { length: 100 }).notNull(),
   email: varchar('email', { length: 255 }).notNull().unique(),
+  ativo: bit('ativo').notNull().default(true),
   criadoEm: datetime('criado em').notNull().defaultGetDate(),
 });
 
